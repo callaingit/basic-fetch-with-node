@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head><title></title>
+    <style>
+        label {
+            display: block;
+        }
+        label > input {
+            margin-left: 2em;
+        }
+    </style>
+    </head>
+    <body>
+        <input id="btn1" type="button" value="btn"></input>
+        <label>First Name<input id="txtFirstName" type="text"></input></label>
+        <label>Last Name<input id="txtLastName" type="text"></input></label>
+        <label>Age Name<input id="txtAge" type="text"></input></label>
+        <script type="text/javascript">
+            document.getElementById('btn1').addEventListener("click", function (event) {
+                fetch('http://localhost:8080/json').then(
+                    function (response) {
+                        console.log('response.ok=', response.ok)
+                        return response.json()
+                    }
+                ).then(
+                    function (jsonObject) {
+                        console.log(typeof jsonObject)
+                        console.log(jsonObject)
+                        let json = JSON.stringify(jsonObject)
+                        console.log(json)
+                        document.getElementById('txtFirstName').value = jsonObject.firstName
+                        document.getElementById('txtLastName').value = jsonObject.lastName
+                        document.getElementById('txtAge').value = jsonObject.age
+                    }
+                ).catch(
+                    function (error) {
+
+                    }
+                )
+            })
+        </script>
+    </body>
+</html>
